@@ -1,6 +1,6 @@
 {
   "name": "yp-tools",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "tools for h5",
   "main": "dist/index.js",
   "umd": "dist/index.umd.js",
