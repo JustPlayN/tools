@@ -14,7 +14,7 @@ yarn-error.log*
 package-lock.json
 .idea
 .vscode
-.DS_Store
+*.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
