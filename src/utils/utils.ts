@@ -26,7 +26,7 @@ export const isMiniProgram = (): boolean => {
   }
 }
 export const isApp = (): boolean => {
-  return !!window.navigator.userAgent.match('LEFIT')
+  return !!window.navigator.userAgent.toLowerCase().match('ypsx')
 }
 export const isIos = (): boolean => {
   return !!window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)

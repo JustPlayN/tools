@@ -20,7 +20,7 @@ export const appApi = (func: string, args: any = []) => {
 /**
  * @function 路由跳转
  * @param url 路由地址
- * @param obj 路由参数：appObj:只在app中使用的参数，minObj:只在小程序中使用的参数
+ * @param obj 路由参数：appObj:只在app中使用的参数，minObj:只在小程序中使用的参数 {id: 1, appObj: {name: 'name'}, minObj: {title: 'name'}}
  */
 export const apiRouter = (url: string, obj: any) => {
   let objStrArr = []
@@ -67,7 +67,7 @@ export const apiRouter = (url: string, obj: any) => {
  * @param phone 电话号码
  */
 export const callPhone = (phone: any) => {
-  utils.isApp() ? appApi('callPhone', [phone]) : window.location.href = phone
+  utils.isApp() ? appApi('callPhone', [phone]) : window.location.href = `tel://${phone}`
 }
 
 /**
