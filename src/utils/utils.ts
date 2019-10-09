@@ -80,11 +80,12 @@ export const loadJs = (src: string) => {
  * @param name 获取的参数名称
  */
 export const getUrlParam = function (name: string, url: string) {
-  const search = url || decodeURIComponent(window.location.search)
+  const urlStr = url || window.location.href
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)') // 构造一个含有目标参数的正则表达式对象
-  const r = search.substr(1).match(reg) // 匹配目标参数
+  const str = /\?/.test(urlStr) ? urlStr.split('?')[1] : ''
+  const r = str.match(reg) // 匹配目标参数
   if (r != null) {
-    return unescape(r[2])
+    return unescape(decodeURIComponent(r[2]))
   } else {
     return null // 返回参数值
   }
