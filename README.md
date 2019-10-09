@@ -4,10 +4,12 @@
 
 ### sdkApi app及小程序通用的方法
 
+```javscript
 1. apiRouter          // 路由跳转
 2. callPhone          // 打电话
 3. login              // app登录
 4. share              // 分享
+```
 
 ### tools 常用函数
 
