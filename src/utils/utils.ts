@@ -48,7 +48,13 @@ export const getCookie = (name: string): string => {
  * @function 获取通过name获得Cookie
  */
 export const setCookie = (cName: string, value: any, maxAge: number): void => {
-  document.cookie = cName + '=' + escape(value) + ((maxAge === null) ? '' : ';max-age=' + maxAge)
+  let domainArr = window.location.host.split('.')
+  let domain = ''
+  if (domainArr.length === 3) {
+    domainArr.unshift()
+    domain = domainArr.join('.')
+  }
+  document.cookie = cName + '=' + escape(value) + ((maxAge === null) ? '' : ';max-age=' + maxAge) + ';path=/;domain=' + domain
 }
 
 /**
