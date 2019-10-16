@@ -51,7 +51,7 @@ export const setCookie = (cName: string, value: any, maxAge: number): void => {
   let domainArr = window.location.host.split('.')
   let domain = ''
   if (domainArr.length === 3) {
-    domainArr.unshift()
+    domainArr.shift()
     domain = domainArr.join('.')
   }
   document.cookie = cName + '=' + escape(value) + ((maxAge === null) ? '' : ';max-age=' + maxAge) + ';path=/;domain=' + domain
