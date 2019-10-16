@@ -1,9 +1,8 @@
 {
   "name": "yp-tools",
-  "version": "1.0.4",
+  "version": "1.0.0",
   "description": "tools for h5",
   "main": "dist/index.js",
-  "umd": "dist/index.umd.js",
   "files": ["dist"],
   "scripts": {
     "dev": "node config/rollup.dev.js",
@@ -30,5 +29,8 @@
     "typescript": "^3.4.1",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
+  },
+  "publishConfig" : {
+    "registry" : "http://nexus.ypsx-internal.com/repository/npm-private/"
   }
 }

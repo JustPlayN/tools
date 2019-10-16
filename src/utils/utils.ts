@@ -16,13 +16,13 @@ export const isMiniProgram = (): boolean => {
   if (window.navigator.userAgent.toLowerCase().indexOf('micromessenger') === -1) {
     return false
   } else {
+    let minP = true
     window.wx.miniProgram.getEnv((res) => {
       if (!res.miniprogram) {
-        return false
-      } else {
-        return true
+        minP = false
       }
     })
+    return minP
   }
 }
 export const isApp = (): boolean => {

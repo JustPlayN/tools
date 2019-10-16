@@ -51,14 +51,17 @@ export const apiRouter = (url: string, obj: any) => {
       case '/pages/index/index':
       case '/pages/shoppingCart/main':
       case '/pages/sort/main':
-        window.wx.miniprogram.switchTab({ url: `${url}${objStr}` })
+        window.wx.miniProgram.switchTab({ url: `${url}${objStr}` })
+        break
+      case 'goback':
+        window.wx.miniProgram.navigateBack()
         break
       default:
-        window.wx.miniprogram.navigateTo({ url: `${url}${objStr}` })
+        window.wx.miniProgram.navigateTo({ url: `${url}${objStr}` })
         break
     }
   } else {
-    console.log('not app, not miniprogram')
+    console.log('not app, not miniProgram')
   }
 }
 
@@ -85,7 +88,7 @@ export const login = () => {
  * @param title 分享title
  */
 export const share = (url: string, img: string, title: string) => {
-  utils.isApp() ? appApi('goShare', [title, img, url]) : window.wx.miniprogram.postMessage({ share: { url, img, title } })
+  utils.isApp() ? appApi('goShare', [title, img, url]) : window.wx.miniProgram.postMessage({ share: { url, img, title } })
 }
 
 const appRouter: Object = {
@@ -96,6 +99,8 @@ const appRouter: Object = {
   '/pages/assemble/main': 'yp://nativeGoodsList',                 // 拼团列表
   '/pages/goodsList/main': 'yp://nativeNomalGoodsList',           // 楼层列表：app参数id、title。小程序参数id、name
   '/pages/search/main': 'yp://flutterSearch',                     // 搜索页
+  '/pages/account/index': 'yp://flutterSearch',                   // 充值页面
+  'goback': 'yp://popPage',                                       // 返回上一页
 }
 
 
