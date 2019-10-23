@@ -93,7 +93,7 @@ export const countDown = (endTime: number, timer: any, callBack: Function, showD
 /**
  * @function 图片格式化过滤器
  * @param url：图片链接
- * @param h：图片width
+ * @param w：图片width
  * @param h：图片height
  * @param m：图片裁切模式
  * 阿里云文档链接：https://help.aliyun.com/document_detail/44688.html?spm=a2c4g.11186623.6.1324.25e13168TRuHyf
