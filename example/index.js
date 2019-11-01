@@ -720,7 +720,7 @@ Dep.prototype.depend = function depend () {
 Dep.prototype.notify = function notify () {
   // stabilize the subscriber list first
   var subs = this.subs.slice();
-  if (!config.async) {
+  if ( !config.async) {
     // subs aren't sorted in scheduler if not running async
     // we need to sort them now to make sure they fire in correct
     // order
@@ -1041,7 +1041,7 @@ function defineReactive$$1 (
         return
       }
       /* eslint-enable no-self-compare */
-      if (customSetter) {
+      if ( customSetter) {
         customSetter();
       }
       // #7981: for accessor properties without setter
@@ -1063,7 +1063,8 @@ function defineReactive$$1 (
  * already exist.
  */
 function set (target, key, val) {
-  if (isUndef(target) || isPrimitive(target)
+  if (
+    (isUndef(target) || isPrimitive(target))
   ) {
     warn(("Cannot set reactive property on undefined, null, or primitive value: " + ((target))));
   }
@@ -1078,7 +1079,7 @@ function set (target, key, val) {
   }
   var ob = (target).__ob__;
   if (target._isVue || (ob && ob.vmCount)) {
-    warn(
+     warn(
       'Avoid adding reactive properties to a Vue instance or its root $data ' +
       'at runtime - declare it upfront in the data option.'
     );
@@ -1097,7 +1098,8 @@ function set (target, key, val) {
  * Delete a property and trigger change if necessary.
  */
 function del (target, key) {
-  if (isUndef(target) || isPrimitive(target)
+  if (
+    (isUndef(target) || isPrimitive(target))
   ) {
     warn(("Cannot delete reactive property on undefined, null, or primitive value: " + ((target))));
   }
@@ -1107,7 +1109,7 @@ function del (target, key) {
   }
   var ob = (target).__ob__;
   if (target._isVue || (ob && ob.vmCount)) {
-    warn(
+     warn(
       'Avoid deleting properties on a Vue instance or its root $data ' +
       '- just set it to null.'
     );
@@ -1243,7 +1245,7 @@ strats.data = function (
 ) {
   if (!vm) {
     if (childVal && typeof childVal !== 'function') {
-      warn(
+       warn(
         'The "data" option should be a function ' +
         'that returns a per-instance value in component ' +
         'definitions.',
@@ -1306,7 +1308,7 @@ function mergeAssets (
 ) {
   var res = Object.create(parentVal || null);
   if (childVal) {
-    assertObjectType(key, childVal, vm);
+     assertObjectType(key, childVal, vm);
     return extend(res, childVal)
   } else {
     return res
@@ -1576,7 +1578,7 @@ function resolveAsset (
   if (hasOwn(assets, PascalCaseId)) { return assets[PascalCaseId] }
   // fallback to prototype chain
   var res = assets[id] || assets[camelizedId] || assets[PascalCaseId];
-  if (warnMissing && !res) {
+  if ( warnMissing && !res) {
     warn(
       'Failed to resolve ' + type.slice(0, -1) + ': ' + id,
       options
@@ -1638,7 +1640,7 @@ function getPropDefaultValue (vm, prop, key) {
   }
   var def = prop.default;
   // warn against non-factory defaults for Object & Array
-  if (isObject(def)) {
+  if ( isObject(def)) {
     warn(
       'Invalid default value for prop "' + key + '": ' +
       'Props with type Object/Array must use a factory function ' +
@@ -2191,7 +2193,7 @@ function updateListeners (
     old = oldOn[name];
     event = normalizeEvent(name);
     if (isUndef(cur)) {
-      warn(
+       warn(
         "Invalid handler for event \"" + (event.name) + "\": got " + String(cur),
         vm
       );
@@ -2667,7 +2669,7 @@ function renderSlot (
   if (scopedSlotFn) { // scoped slot
     props = props || {};
     if (bindObject) {
-      if (!isObject(bindObject)) {
+      if ( !isObject(bindObject)) {
         warn(
           'slot v-bind without argument expects an Object',
           this
@@ -2743,7 +2745,7 @@ function bindObjectProps (
 ) {
   if (value) {
     if (!isObject(value)) {
-      warn(
+       warn(
         'v-bind without argument expects an Object or Array value',
         this
       );
@@ -2851,7 +2853,7 @@ function markStaticNode (node, key, isOnce) {
 function bindObjectListeners (data, value) {
   if (value) {
     if (!isPlainObject(value)) {
-      warn(
+       warn(
         'v-on without argument expects an Object value',
         this
       );
@@ -2902,7 +2904,7 @@ function bindDynamicKeys (baseObj, values) {
     var key = values[i];
     if (typeof key === 'string' && key) {
       baseObj[values[i]] = values[i + 1];
-    } else if (key !== '' && key !== null) {
+    } else if ( key !== '' && key !== null) {
       // null is a speical value for explicitly removing a binding
       warn(
         ("Invalid value for dynamic directive argument (expected string or null): " + key),
@@ -3353,7 +3355,7 @@ function _createElement (
   normalizationType
 ) {
   if (isDef(data) && isDef((data).__ob__)) {
-    warn(
+     warn(
       "Avoid using observed data object as vnode data: " + (JSON.stringify(data)) + "\n" +
       'Always create fresh vnode data objects in each render!',
       context
@@ -3369,7 +3371,8 @@ function _createElement (
     return createEmptyVNode()
   }
   // warn against non-primitive key
-  if (isDef(data) && isDef(data.key) && !isPrimitive(data.key)
+  if (
+    isDef(data) && isDef(data.key) && !isPrimitive(data.key)
   ) {
     {
       warn(
@@ -3533,7 +3536,7 @@ function renderMixin (Vue) {
       // return error render result,
       // or previous vnode to prevent render error causing blank component
       /* istanbul ignore else */
-      if (vm.$options.renderError) {
+      if ( vm.$options.renderError) {
         try {
           vnode = vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e);
         } catch (e) {
@@ -3552,7 +3555,7 @@ function renderMixin (Vue) {
     }
     // return empty vnode in case the render function errored out
     if (!(vnode instanceof VNode)) {
-      if (Array.isArray(vnode)) {
+      if ( Array.isArray(vnode)) {
         warn(
           'Multiple root nodes returned from render function. Render function ' +
           'should return a single root node.',
@@ -3655,7 +3658,7 @@ function resolveAsyncComponent (
     });
 
     var reject = once(function (reason) {
-      warn(
+       warn(
         "Failed to resolve async component: " + (String(factory)) +
         (reason ? ("\nReason: " + reason) : '')
       );
@@ -3700,7 +3703,8 @@ function resolveAsyncComponent (
             timerTimeout = null;
             if (isUndef(factory.resolved)) {
               reject(
-                "timeout (" + (res.timeout) + "ms)"
+                 ("timeout (" + (res.timeout) + "ms)")
+                  
               );
             }
           }, res.timeout);
@@ -4024,7 +4028,7 @@ function mountComponent (
 
   var updateComponent;
   /* istanbul ignore if */
-  if (config.performance && mark) {
+  if ( config.performance && mark) {
     updateComponent = function () {
       var name = vm._name;
       var id = vm._uid;
@@ -4289,7 +4293,7 @@ function flushSchedulerQueue () {
     has[id] = null;
     watcher.run();
     // in dev build, check and stop circular updates.
-    if (has[id] != null) {
+    if ( has[id] != null) {
       circular[id] = (circular[id] || 0) + 1;
       if (circular[id] > MAX_UPDATE_COUNT) {
         warn(
@@ -4375,7 +4379,7 @@ function queueWatcher (watcher) {
     if (!waiting) {
       waiting = true;
 
-      if (!config.async) {
+      if ( !config.async) {
         flushSchedulerQueue();
         return
       }
@@ -4425,7 +4429,8 @@ var Watcher = function Watcher (
   this.newDeps = [];
   this.depIds = new _Set();
   this.newDepIds = new _Set();
-  this.expression = expOrFn.toString();
+  this.expression =  expOrFn.toString()
+    ;
   // parse expression for getter
   if (typeof expOrFn === 'function') {
     this.getter = expOrFn;
@@ -4433,7 +4438,7 @@ var Watcher = function Watcher (
     this.getter = parsePath(expOrFn);
     if (!this.getter) {
       this.getter = noop;
-      warn(
+       warn(
         "Failed watching path: \"" + expOrFn + "\" " +
         'Watcher only accepts simple dot-delimited paths. ' +
         'For full control, use a function instead.',
@@ -4682,7 +4687,7 @@ function initData (vm) {
     : data || {};
   if (!isPlainObject(data)) {
     data = {};
-    warn(
+     warn(
       'data functions should return an object:\n' +
       'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function',
       vm
@@ -4704,7 +4709,7 @@ function initData (vm) {
       }
     }
     if (props && hasOwn(props, key)) {
-      warn(
+       warn(
         "The data property \"" + key + "\" is already declared as a prop. " +
         "Use prop default value instead.",
         vm
@@ -4741,7 +4746,7 @@ function initComputed (vm, computed) {
   for (var key in computed) {
     var userDef = computed[key];
     var getter = typeof userDef === 'function' ? userDef : userDef.get;
-    if (getter == null) {
+    if ( getter == null) {
       warn(
         ("Getter is missing for computed property \"" + key + "\"."),
         vm
@@ -4792,7 +4797,8 @@ function defineComputed (
       : noop;
     sharedPropertyDefinition.set = userDef.set || noop;
   }
-  if (sharedPropertyDefinition.set === noop) {
+  if (
+      sharedPropertyDefinition.set === noop) {
     sharedPropertyDefinition.set = function () {
       warn(
         ("Computed property \"" + key + "\" was assigned to but it has no setter."),
@@ -4944,7 +4950,7 @@ function initMixin (Vue) {
 
     var startTag, endTag;
     /* istanbul ignore if */
-    if (config.performance && mark) {
+    if ( config.performance && mark) {
       startTag = "vue-perf-start:" + (vm._uid);
       endTag = "vue-perf-end:" + (vm._uid);
       mark(startTag);
@@ -4981,7 +4987,7 @@ function initMixin (Vue) {
     callHook(vm, 'created');
 
     /* istanbul ignore if */
-    if (config.performance && mark) {
+    if ( config.performance && mark) {
       vm._name = formatComponentName(vm, false);
       mark(endTag);
       measure(("vue " + (vm._name) + " init"), startTag, endTag);
@@ -5050,7 +5056,8 @@ function resolveModifiedOptions (Ctor) {
 }
 
 function Vue (options) {
-  if (!(this instanceof Vue)
+  if (
+    !(this instanceof Vue)
   ) {
     warn('Vue is a constructor and should be called with the `new` keyword');
   }
@@ -5118,7 +5125,7 @@ function initExtend (Vue) {
     }
 
     var name = extendOptions.name || Super.options.name;
-    if (name) {
+    if ( name) {
       validateComponentName(name);
     }
 
@@ -5201,7 +5208,7 @@ function initAssetRegisters (Vue) {
         return this.options[type + 's'][id]
       } else {
         /* istanbul ignore if */
-        if (type === 'component') {
+        if ( type === 'component') {
           validateComponentName(id);
         }
         if (type === 'component' && isPlainObject(definition)) {
@@ -5640,7 +5647,7 @@ function query (el) {
   if (typeof el === 'string') {
     var selected = document.querySelector(el);
     if (!selected) {
-      warn(
+       warn(
         'Cannot find element: ' + el
       );
       return document.createElement('div')
@@ -5930,7 +5937,7 @@ function createPatchFunction (backend) {
         insert(parentElm, vnode.elm, refElm);
       }
 
-      if (data && data.pre) {
+      if ( data && data.pre) {
         creatingElmInVPre--;
       }
     } else if (isTrue(vnode.isComment)) {
@@ -6364,7 +6371,8 @@ function createPatchFunction (backend) {
           if (isDef(i = data) && isDef(i = i.domProps) && isDef(i = i.innerHTML)) {
             if (i !== elm.innerHTML) {
               /* istanbul ignore if */
-              if (typeof console !== 'undefined' &&
+              if (
+                typeof console !== 'undefined' &&
                 !hydrationBailed
               ) {
                 hydrationBailed = true;
@@ -6389,7 +6397,8 @@ function createPatchFunction (backend) {
             // longer than the virtual children list.
             if (!childrenMatch || childNode) {
               /* istanbul ignore if */
-              if (typeof console !== 'undefined' &&
+              if (
+                typeof console !== 'undefined' &&
                 !hydrationBailed
               ) {
                 hydrationBailed = true;
@@ -7536,7 +7545,7 @@ function enter (vnode, toggleDisplay) {
       : duration
   );
 
-  if (explicitEnterDuration != null) {
+  if ( explicitEnterDuration != null) {
     checkDuration(explicitEnterDuration, 'enter', vnode);
   }
 
@@ -7644,7 +7653,7 @@ function leave (vnode, rm) {
       : duration
   );
 
-  if (isDef(explicitLeaveDuration)) {
+  if ( isDef(explicitLeaveDuration)) {
     checkDuration(explicitLeaveDuration, 'leave', vnode);
   }
 
@@ -7871,7 +7880,7 @@ function actuallySetSelected (el, binding, vm) {
   var value = binding.value;
   var isMultiple = el.multiple;
   if (isMultiple && !Array.isArray(value)) {
-    warn(
+     warn(
       "<select multiple v-model=\"" + (binding.expression) + "\"> " +
       "expects an Array value for its binding, but got " + (Object.prototype.toString.call(value).slice(8, -1)),
       vm
@@ -8088,7 +8097,7 @@ var Transition = {
     }
 
     // warn multiple elements
-    if (children.length > 1) {
+    if ( children.length > 1) {
       warn(
         '<transition> can only be used on a single element. Use ' +
         '<transition-group> for lists.',
@@ -8099,7 +8108,8 @@ var Transition = {
     var mode = this.mode;
 
     // warn invalid mode
-    if (mode && mode !== 'in-out' && mode !== 'out-in'
+    if (
+      mode && mode !== 'in-out' && mode !== 'out-in'
     ) {
       warn(
         'invalid <transition> mode: ' + mode,
@@ -8398,7 +8408,8 @@ if (inBrowser) {
         );
       }
     }
-    if (config.productionTip !== false &&
+    if (
+      config.productionTip !== false &&
       typeof console !== 'undefined'
     ) {
       console[console.info ? 'info' : 'log'](
@@ -8606,6 +8617,7 @@ var debounce = function (func, wait, immediate) {
 };
 
 var tools = /*#__PURE__*/Object.freeze({
+    __proto__: null,
     accMul: accMul,
     accDiv: accDiv,
     countDown: countDown,
@@ -8619,18 +8631,17 @@ var isMiniProgram = function () {
         return false;
     }
     else {
+        var minP_1 = true;
         window.wx.miniProgram.getEnv(function (res) {
             if (!res.miniprogram) {
-                return false;
-            }
-            else {
-                return true;
+                minP_1 = false;
             }
         });
+        return minP_1;
     }
 };
 var isApp = function () {
-    return !!window.navigator.userAgent.match('LEFIT');
+    return !!window.navigator.userAgent.toLowerCase().match('ypsx');
 };
 var isIos = function () {
     return !!window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
@@ -8646,7 +8657,13 @@ var getCookie = function (name) {
     }
 };
 var setCookie = function (cName, value, maxAge) {
-    document.cookie = cName + '=' + escape(value) + ((maxAge === null) ? '' : ';max-age=' + maxAge);
+    var domainArr = window.location.host.split('.');
+    var domain = '';
+    if (domainArr.length === 3) {
+        domainArr.shift();
+        domain = domainArr.join('.');
+    }
+    document.cookie = cName + '=' + escape(value) + ((maxAge === null) ? '' : ';max-age=' + maxAge) + ';path=/;domain=' + domain;
 };
 var getUid = function () {
     return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -8664,11 +8681,12 @@ var loadJs = function (src) {
     };
 };
 var getUrlParam = function (name, url) {
-    var search = url || decodeURIComponent(window.location.search);
+    var urlStr = url || window.location.href;
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
-    var r = search.substr(1).match(reg);
+    var str = /\?/.test(urlStr) ? urlStr.split('?')[1] : '';
+    var r = str.match(reg);
     if (r != null) {
-        return unescape(r[2]);
+        return unescape(decodeURIComponent(r[2]));
     }
     else {
         return null;
@@ -8676,6 +8694,7 @@ var getUrlParam = function (name, url) {
 };
 
 var utils = /*#__PURE__*/Object.freeze({
+    __proto__: null,
     isMiniProgram: isMiniProgram,
     isApp: isApp,
     isIos: isIos,
@@ -8726,25 +8745,28 @@ var apiRouter = function (url, obj) {
             case '/pages/index/index':
             case '/pages/shoppingCart/main':
             case '/pages/sort/main':
-                window.wx.miniprogram.switchTab({ url: "" + url + objStr });
+                window.wx.miniProgram.switchTab({ url: "" + url + objStr });
+                break;
+            case 'goback':
+                window.wx.miniProgram.navigateBack();
                 break;
             default:
-                window.wx.miniprogram.navigateTo({ url: "" + url + objStr });
+                window.wx.miniProgram.navigateTo({ url: "" + url + objStr });
                 break;
         }
     }
     else {
-        console.log('not app, not miniprogram');
+        console.log('not app, not miniProgram');
     }
 };
 var callPhone = function (phone) {
-    isApp() ? appApi('callPhone', [phone]) : window.location.href = phone;
+    isApp() ? appApi('callPhone', [phone]) : window.location.href = "tel://" + phone;
 };
 var login = function () {
     isApp() ? appApi('toLogin') : console.log('非app登录，小程序不需要登录');
 };
 var share = function (url, img, title) {
-    isApp() ? appApi('goShare', [title, img, url]) : window.wx.miniprogram.postMessage({ share: { url: url, img: img, title: title } });
+    isApp() ? appApi('goShare', [title, img, url]) : window.wx.miniProgram.postMessage({ share: { url: url, img: img, title: title } });
 };
 var appRouter = {
     '/pages/index/index': 'yp://nativeLogin',
@@ -8754,9 +8776,12 @@ var appRouter = {
     '/pages/assemble/main': 'yp://nativeGoodsList',
     '/pages/goodsList/main': 'yp://nativeNomalGoodsList',
     '/pages/search/main': 'yp://flutterSearch',
+    '/pages/account/index': 'yp://flutterSearch',
+    'goback': 'yp://popPage',
 };
 
 var sdkApi = /*#__PURE__*/Object.freeze({
+    __proto__: null,
     appApi: appApi,
     apiRouter: apiRouter,
     callPhone: callPhone,
@@ -8764,19 +8789,19 @@ var sdkApi = /*#__PURE__*/Object.freeze({
     share: share
 });
 
-var index$1 = __assign({}, tools, sdkApi, utils);
+var ypTools = __assign(__assign(__assign({}, tools), utils), sdkApi);
 
 //
 var script = {
   data () {
     return {
-      ios: index$1.isIos(),
-      app: index$1.isApp(),
-      number: index$1.accMul(1.2, 1.2)
+      ios: ypTools.isIos(),
+      app: ypTools.isApp(),
+      number: ypTools.accMul(1.2, 1.2)
     }
   },
   methods: {
-    testThrottle: index$1.throttle(function () {
+    testThrottle: ypTools.throttle(function () {
       this.mylog();
     }),
     mylog () {
@@ -8784,7 +8809,7 @@ var script = {
     }
   },
   created () {
-    console.log(index$1.getUrlParam('id'));
+    console.log(ypTools.getUrlParam('id'));
   }
 };
 

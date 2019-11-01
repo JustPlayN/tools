@@ -1,9 +1,11 @@
-import * as tools from './utils/tools'
 import * as sdkApi from './utils/sdkApi'
+import * as tools from './utils/tools'
 import * as utils from './utils/utils'
 
-export default {
-  ...tools,
+let ypTools = {
   ...sdkApi,
+  ...tools,
   ...utils
 }
+
+export default ypTools
