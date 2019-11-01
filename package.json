@@ -3,7 +3,9 @@
   "version": "1.1.1-beta-6",
   "description": "tools for h5",
   "main": "dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "node config/rollup.dev.js",
     "build": "rollup -c config/rollup.prod.js"
@@ -30,7 +32,12 @@
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
   },
-  "publishConfig" : {
-    "registry" : "http://nexus.ypsx-internal.com/repository/npm-private/"
+  "publishConfig": {
+    "registry": "http://nexus.ypsx-internal.com/repository/npm-private/"
+  },
+  "repository": {
+    "private": true,
+    "type": "git",
+    "url": "https://coding.ypsx-internal.com/web-front-end/yp-tools"
   }
 }
