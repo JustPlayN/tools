@@ -40,3 +40,23 @@
 ``` bash
 npm run dev
 ```
+
+### 发布正式版本：分支master
+
+``` bash
+1. 发布准备：https://wiki.ypsx-internal.com/pages/viewpage.action?pageId=15368399
+2. 修改版本号
+3. 打包：npm run build
+4. 发布：npm publish
+5. 使用：npm i -S yp-tools
+```
+
+### 发布beta版本
+
+``` bash
+1. master切分支---开发自测---合并到beta分支
+2. 修改版本号
+3. 打包：npm run build
+4. 发布：npm publish --tag beta
+5. 使用：npm i -S yp-tools@beta
+```
