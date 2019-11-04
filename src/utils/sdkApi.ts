@@ -26,26 +26,33 @@ export const apiRouter = (url: string, obj: any) => {
   let objStrArr = []
   if (obj) {
     if (utils.isApp() && obj.appObj) {
-      obj.appObj.map((key: string, value: any) => {
-        objStrArr.push(`${key}=${value}`)
-      })
+      for (let key in obj.appObj) {
+        objStrArr.push(`${key}=${obj.appObj[key]}`)
+      }
     }
     if (utils.isMiniProgram() && obj.minObj) {
-      obj.minObj.map((key: string, value: any) => {
-        objStrArr.push(`${key}=${value}`)
-      })
+      for (let key in obj.minObj) {
+        objStrArr.push(`${key}=${obj.minObj[key]}`)
+      }
     }
     delete obj.appObj
     delete obj.minObj
-    obj.map((key: string, value: any) => {
+    for (let key in obj) {
       if (key !== 'appObj' && key !== 'minObj') {
-        objStrArr.push(`${key}=${value}`)
+        objStrArr.push(`${key}=${obj[key]}`)
       }
-    })
+    }
   }
   let objStr = objStrArr.length > 0 ? '?' + objStrArr.join('&') : ''
   if (utils.isApp()) {
-    window.location.href = `${appRouter[url]}${objStr}`
+    let urlTemp = `${appRouter[url]}${objStr}`
+    switch (url) {
+      case 'goshare':
+        urlTemp = encodeURI(`${appRouter[url]}${objStr}`)
+        break
+      default:
+    }
+    window.location.href = urlTemp
   } else if (utils.isMiniProgram()) {
     switch (url) {
       case '/pages/index/index':
@@ -101,6 +108,7 @@ const appRouter: Object = {
   '/pages/search/main': 'yp://flutterSearch',                     // 搜索页
   '/pages/account/index': 'yp://flutterSearch',                   // 充值页面
   'goback': 'yp://popPage',                                       // 返回上一页
+  'goshare': 'yp://appShare'
 }
 
 

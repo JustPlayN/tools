@@ -8447,6 +8447,176 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
+var isMiniProgram = function () {
+    if (window.navigator.userAgent.toLowerCase().indexOf('micromessenger') === -1) {
+        return false;
+    }
+    else {
+        var minP_1 = true;
+        window.wx.miniProgram.getEnv(function (res) {
+            if (!res.miniprogram) {
+                minP_1 = false;
+            }
+        });
+        return minP_1;
+    }
+};
+var isApp = function () {
+    return !!window.navigator.userAgent.toLowerCase().match('ypsx');
+};
+var isIos = function () {
+    return !!window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+};
+var getCookie = function (name) {
+    var reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
+    var arr = document.cookie.match(reg);
+    if (arr) {
+        return unescape(arr[2]);
+    }
+    else {
+        return null;
+    }
+};
+var setCookie = function (cName, value, maxAge) {
+    var domainArr = window.location.host.split('.');
+    var domain = '';
+    if (domainArr.length === 3) {
+        domainArr.shift();
+        domain = domainArr.join('.');
+    }
+    document.cookie = cName + '=' + escape(value) + ((maxAge === null) ? '' : ';max-age=' + maxAge) + ';path=/;domain=' + domain;
+};
+var getUid = function () {
+    return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+};
+var loadJs = function (src) {
+    var script = document.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.src = src;
+    document.body.appendChild(script);
+    script.onload = function () {
+        return true;
+    };
+};
+var getUrlParam = function (name, url) {
+    var urlStr = url || window.location.href;
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
+    var str = /\?/.test(urlStr) ? urlStr.split('?')[1] : '';
+    var r = str.match(reg);
+    if (r != null) {
+        return unescape(decodeURIComponent(r[2]));
+    }
+    else {
+        return null;
+    }
+};
+
+var utils = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    isMiniProgram: isMiniProgram,
+    isApp: isApp,
+    isIos: isIos,
+    getCookie: getCookie,
+    setCookie: setCookie,
+    getUid: getUid,
+    loadJs: loadJs,
+    getUrlParam: getUrlParam
+});
+
+var appApi = function (func, args) {
+    var _a;
+    if (args === void 0) { args = []; }
+    if (isIos()) {
+        window.webkit && window.webkit.messageHandlers[func].postMessage(args);
+    }
+    else {
+        (_a = window.ypsxBridge)[func].apply(_a, args);
+    }
+};
+var apiRouter = function (url, obj) {
+    var objStrArr = [];
+    if (obj) {
+        if (isApp() && obj.appObj) {
+            for (var key in obj.appObj) {
+                objStrArr.push(key + "=" + obj.appObj[key]);
+            }
+        }
+        if (isMiniProgram() && obj.minObj) {
+            for (var key in obj.minObj) {
+                objStrArr.push(key + "=" + obj.minObj[key]);
+            }
+        }
+        delete obj.appObj;
+        delete obj.minObj;
+        for (var key in obj) {
+            if (key !== 'appObj' && key !== 'minObj') {
+                objStrArr.push(key + "=" + obj[key]);
+            }
+        }
+    }
+    var objStr = objStrArr.length > 0 ? '?' + objStrArr.join('&') : '';
+    if (isApp()) {
+        var urlTemp = "" + appRouter[url] + objStr;
+        switch (url) {
+            case 'goshare':
+                urlTemp = encodeURI("" + appRouter[url] + objStr);
+                break;
+        }
+        window.location.href = urlTemp;
+    }
+    else if (isMiniProgram()) {
+        switch (url) {
+            case '/pages/index/index':
+            case '/pages/shoppingCart/main':
+            case '/pages/sort/main':
+                window.wx.miniProgram.switchTab({ url: "" + url + objStr });
+                break;
+            case 'goback':
+                window.wx.miniProgram.navigateBack();
+                break;
+            default:
+                window.wx.miniProgram.navigateTo({ url: "" + url + objStr });
+                break;
+        }
+    }
+    else {
+        console.log('not app, not miniProgram');
+    }
+};
+var callPhone = function (phone) {
+    isApp() ? appApi('callPhone', [phone]) : window.location.href = "tel://" + phone;
+};
+var login = function () {
+    isApp() ? appApi('toLogin') : console.log('非app登录，小程序不需要登录');
+};
+var share = function (url, img, title) {
+    isApp() ? appApi('goShare', [title, img, url]) : window.wx.miniProgram.postMessage({ share: { url: url, img: img, title: title } });
+};
+var appRouter = {
+    '/pages/index/index': 'yp://nativeLogin',
+    '/pages/shoppingCart/main': 'yp://nativeShoppingCart',
+    '/pages/detail/main': 'yp://nativeGoodsPage',
+    '/pages/sort/main': 'yp://nativeGoCategory',
+    '/pages/assemble/main': 'yp://nativeGoodsList',
+    '/pages/goodsList/main': 'yp://nativeNomalGoodsList',
+    '/pages/search/main': 'yp://flutterSearch',
+    '/pages/account/index': 'yp://flutterSearch',
+    'goback': 'yp://popPage',
+    'goshare': 'yp://appShare'
+};
+
+var sdkApi = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    appApi: appApi,
+    apiRouter: apiRouter,
+    callPhone: callPhone,
+    login: login,
+    share: share
+});
+
 var accMul = function (value, multiplier) {
     if (value === void 0) { value = 0; }
     if (multiplier === void 0) { multiplier = 100; }
@@ -8626,170 +8796,7 @@ var tools = /*#__PURE__*/Object.freeze({
     debounce: debounce
 });
 
-var isMiniProgram = function () {
-    if (window.navigator.userAgent.toLowerCase().indexOf('micromessenger') === -1) {
-        return false;
-    }
-    else {
-        var minP_1 = true;
-        window.wx.miniProgram.getEnv(function (res) {
-            if (!res.miniprogram) {
-                minP_1 = false;
-            }
-        });
-        return minP_1;
-    }
-};
-var isApp = function () {
-    return !!window.navigator.userAgent.toLowerCase().match('ypsx');
-};
-var isIos = function () {
-    return !!window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-};
-var getCookie = function (name) {
-    var reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
-    var arr = document.cookie.match(reg);
-    if (arr) {
-        return unescape(arr[2]);
-    }
-    else {
-        return null;
-    }
-};
-var setCookie = function (cName, value, maxAge) {
-    var domainArr = window.location.host.split('.');
-    var domain = '';
-    if (domainArr.length === 3) {
-        domainArr.shift();
-        domain = domainArr.join('.');
-    }
-    document.cookie = cName + '=' + escape(value) + ((maxAge === null) ? '' : ';max-age=' + maxAge) + ';path=/;domain=' + domain;
-};
-var getUid = function () {
-    return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
-};
-var loadJs = function (src) {
-    var script = document.createElement('script');
-    script.setAttribute('type', 'text/javascript');
-    script.src = src;
-    document.body.appendChild(script);
-    script.onload = function () {
-        return true;
-    };
-};
-var getUrlParam = function (name, url) {
-    var urlStr = url || window.location.href;
-    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
-    var str = /\?/.test(urlStr) ? urlStr.split('?')[1] : '';
-    var r = str.match(reg);
-    if (r != null) {
-        return unescape(decodeURIComponent(r[2]));
-    }
-    else {
-        return null;
-    }
-};
-
-var utils = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    isMiniProgram: isMiniProgram,
-    isApp: isApp,
-    isIos: isIos,
-    getCookie: getCookie,
-    setCookie: setCookie,
-    getUid: getUid,
-    loadJs: loadJs,
-    getUrlParam: getUrlParam
-});
-
-var appApi = function (func, args) {
-    var _a;
-    if (args === void 0) { args = []; }
-    if (isIos()) {
-        window.webkit && window.webkit.messageHandlers[func].postMessage(args);
-    }
-    else {
-        (_a = window.ypsxBridge)[func].apply(_a, args);
-    }
-};
-var apiRouter = function (url, obj) {
-    var objStrArr = [];
-    if (obj) {
-        if (isApp() && obj.appObj) {
-            obj.appObj.map(function (key, value) {
-                objStrArr.push(key + "=" + value);
-            });
-        }
-        if (isMiniProgram() && obj.minObj) {
-            obj.minObj.map(function (key, value) {
-                objStrArr.push(key + "=" + value);
-            });
-        }
-        delete obj.appObj;
-        delete obj.minObj;
-        obj.map(function (key, value) {
-            if (key !== 'appObj' && key !== 'minObj') {
-                objStrArr.push(key + "=" + value);
-            }
-        });
-    }
-    var objStr = objStrArr.length > 0 ? '?' + objStrArr.join('&') : '';
-    if (isApp()) {
-        window.location.href = "" + appRouter[url] + objStr;
-    }
-    else if (isMiniProgram()) {
-        switch (url) {
-            case '/pages/index/index':
-            case '/pages/shoppingCart/main':
-            case '/pages/sort/main':
-                window.wx.miniProgram.switchTab({ url: "" + url + objStr });
-                break;
-            case 'goback':
-                window.wx.miniProgram.navigateBack();
-                break;
-            default:
-                window.wx.miniProgram.navigateTo({ url: "" + url + objStr });
-                break;
-        }
-    }
-    else {
-        console.log('not app, not miniProgram');
-    }
-};
-var callPhone = function (phone) {
-    isApp() ? appApi('callPhone', [phone]) : window.location.href = "tel://" + phone;
-};
-var login = function () {
-    isApp() ? appApi('toLogin') : console.log('非app登录，小程序不需要登录');
-};
-var share = function (url, img, title) {
-    isApp() ? appApi('goShare', [title, img, url]) : window.wx.miniProgram.postMessage({ share: { url: url, img: img, title: title } });
-};
-var appRouter = {
-    '/pages/index/index': 'yp://nativeLogin',
-    '/pages/shoppingCart/main': 'yp://nativeShoppingCart',
-    '/pages/detail/main': 'yp://nativeGoodsPage',
-    '/pages/sort/main': 'yp://nativeGoCategory',
-    '/pages/assemble/main': 'yp://nativeGoodsList',
-    '/pages/goodsList/main': 'yp://nativeNomalGoodsList',
-    '/pages/search/main': 'yp://flutterSearch',
-    '/pages/account/index': 'yp://flutterSearch',
-    'goback': 'yp://popPage',
-};
-
-var sdkApi = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    appApi: appApi,
-    apiRouter: apiRouter,
-    callPhone: callPhone,
-    login: login,
-    share: share
-});
-
-var ypTools = __assign(__assign(__assign({}, tools), utils), sdkApi);
+var ypTools = __assign(__assign(__assign({}, sdkApi), tools), utils);
 
 //
 var script = {
@@ -8806,6 +8813,16 @@ var script = {
     }),
     mylog () {
       console.log(this);
+    },
+    testShare () {
+      const args = {
+        title: '黄花菜凉了',
+        desc: '这是描述',
+        imgUrl: 'https://test-oss.ypshengxian.com/images/marketing/zr9Z7pLmw5.png',
+        shareUrl: 'https://baidu.com',
+        type: 1,
+      };
+      ypTools.apiRouter('goshare', args);
     }
   },
   created () {
@@ -8965,7 +8982,9 @@ var __vue_render__ = function() {
     _vm._v(" "),
     _c("div", { on: { click: _vm.testThrottle } }, [
       _vm._v("accMul: " + _vm._s(_vm.number))
-    ])
+    ]),
+    _vm._v(" "),
+    _c("div", { on: { click: _vm.testShare } }, [_vm._v("test share")])
   ])
 };
 var __vue_staticRenderFns__ = [];
@@ -8974,11 +8993,11 @@ __vue_render__._withStripped = true;
   /* style */
   const __vue_inject_styles__ = function (inject) {
     if (!inject) return
-    inject("data-v-722abd90_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"app.vue"}, media: undefined });
+    inject("data-v-2b67fcce_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"app.vue"}, media: undefined });
 
   };
   /* scoped */
-  const __vue_scope_id__ = "data-v-722abd90";
+  const __vue_scope_id__ = "data-v-2b67fcce";
   /* module identifier */
   const __vue_module_identifier__ = undefined;
   /* functional template */
