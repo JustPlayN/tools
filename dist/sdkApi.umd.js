@@ -61,7 +61,7 @@
           var urlTemp = "" + appRouter[url] + objStr;
           switch (url) {
               case 'goshare':
-                  urlTemp = encodeURI("" + appRouter[url] + objStr);
+                  urlTemp = encodeURIComponent("" + appRouter[url] + objStr);
                   break;
           }
           window.location.href = urlTemp;
