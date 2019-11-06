@@ -48,7 +48,7 @@ export const apiRouter = (url: string, obj: any) => {
     let urlTemp = `${appRouter[url]}${objStr}`
     switch (url) {
       case 'goshare':
-        urlTemp = encodeURI(`${appRouter[url]}${objStr}`)
+        urlTemp = encodeURIComponent(`${appRouter[url]}${objStr}`)
         break
       default:
     }
