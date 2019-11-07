@@ -45,14 +45,7 @@ export const apiRouter = (url: string, obj: any) => {
   }
   let objStr = objStrArr.length > 0 ? '?' + objStrArr.join('&') : ''
   if (utils.isApp()) {
-    let urlTemp = `${appRouter[url]}${objStr}`
-    switch (url) {
-      case 'goshare':
-        urlTemp = encodeURIComponent(`${appRouter[url]}${objStr}`)
-        break
-      default:
-    }
-    window.location.href = urlTemp
+    window.location.href = `${appRouter[url]}${objStr}`
   } else if (utils.isMiniProgram()) {
     switch (url) {
       case '/pages/index/index':

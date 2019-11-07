@@ -8533,13 +8533,7 @@ var apiRouter = function (url, obj) {
     }
     var objStr = objStrArr.length > 0 ? '?' + objStrArr.join('&') : '';
     if (isApp()) {
-        var urlTemp = "" + appRouter[url] + objStr;
-        switch (url) {
-            case 'goshare':
-                urlTemp = encodeURIComponent("" + appRouter[url] + objStr);
-                break;
-        }
-        window.location.href = urlTemp;
+        window.location.href = "" + appRouter[url] + objStr;
     }
     else if (isMiniProgram()) {
         switch (url) {
