@@ -20,23 +20,25 @@ export const appApi = (func: string, args: any = []) => {
 /**
  * @function 路由跳转
  * @param url 路由地址
- * @param obj 路由参数：appObj:只在app中使用的参数，minObj:只在小程序中使用的参数 {id: 1, appObj: {name: 'name'}, minObj: {title: 'name'}}
+ * @param appObj:只在app中使用的参数
+ * @param minObj:只在小程序中使用的参数 {id: 1, appObj: {name: 'name'}, minObj: {title: 'name'}}
+ * @param minType:小程序跳转方式
+ * @param appType:app跳转方式
  */
-export const apiRouter = (url: string, obj: any) => {
+export const openUrl = (dataObj: any) => {
+  let { url = 'goback', minObj, appObj, obj, minType = 'navigateBack', appType = '' } = dataObj || {}
   let objStrArr = []
+  if (utils.isApp() && appObj) {
+    for (let key in appObj) {
+      objStrArr.push(`${key}=${appObj[key]}`)
+    }
+  }
+  if (utils.isMiniProgram() && minObj) {
+    for (let key in minObj) {
+      objStrArr.push(`${key}=${minObj[key]}`)
+    }
+  }
   if (obj) {
-    if (utils.isApp() && obj.appObj) {
-      for (let key in obj.appObj) {
-        objStrArr.push(`${key}=${obj.appObj[key]}`)
-      }
-    }
-    if (utils.isMiniProgram() && obj.minObj) {
-      for (let key in obj.minObj) {
-        objStrArr.push(`${key}=${obj.minObj[key]}`)
-      }
-    }
-    delete obj.appObj
-    delete obj.minObj
     for (let key in obj) {
       if (key !== 'appObj' && key !== 'minObj') {
         objStrArr.push(`${key}=${obj[key]}`)
@@ -47,17 +49,21 @@ export const apiRouter = (url: string, obj: any) => {
   if (utils.isApp()) {
     window.location.href = `${appRouter[url]}${objStr}`
   } else if (utils.isMiniProgram()) {
-    switch (url) {
-      case '/pages/index/index':
-      case '/pages/shoppingCart/main':
-      case '/pages/sort/main':
+    switch (minType) {
+      case 'switchTab':
         window.wx.miniProgram.switchTab({ url: `${url}${objStr}` })
         break
       case 'goback':
         window.wx.miniProgram.navigateBack()
         break
-      default:
+      case 'navigateTo':
         window.wx.miniProgram.navigateTo({ url: `${url}${objStr}` })
+        break
+      case 'redirectTo':
+        window.wx.miniProgram.redirectTo({ url: `${url}${objStr}` })
+        break
+      default:
+        window.wx.miniProgram.navigateBack()
         break
     }
   } else {
