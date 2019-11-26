@@ -99,9 +99,9 @@ const appRouter: Object = {
   '/pages/assemble/main': 'yp://nativeGoodsList',                 // 拼团列表
   '/pages/goodsList/main': 'yp://nativeNomalGoodsList',           // 楼层列表：app参数id、title。小程序参数id、name
   '/pages/search/main': 'yp://flutterSearch',                     // 搜索页
-  '/pages/account/index': 'yp://flutterSearch',                   // 充值页面
+  '/pages/account/index': 'yp://nativeGoRechargePage',            // 充值页面
   'goback': 'yp://popPage',                                       // 返回上一页
-  'goshare': 'yp://appShare'
+  'goshare': 'yp://appShare',
 }
 
 
