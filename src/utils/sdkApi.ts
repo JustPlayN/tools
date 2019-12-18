@@ -62,6 +62,9 @@ export const openUrl = (dataObj: any) => {
       case 'redirectTo':
         window.wx.miniProgram.redirectTo({ url: `${url}${objStr}` })
         break
+      case 'callphone':
+        window.wx.makePhoneCall(minObj)
+        break
       default:
         window.wx.miniProgram.navigateBack()
         break
@@ -107,7 +110,8 @@ const appRouter: Object = {
   '/pages/search/main': 'yp://flutterSearch',                     // 搜索页
   '/pages/account/index': 'yp://nativeGoRechargePage',            // 充值页面
   'goback': 'yp://popPage',                                       // 返回上一页
-  'goshare': 'yp://appShare',
+  'goshare': 'yp://appShare',                           // 返回上一页
+  'callphone': 'yp://callPhone',
 }
 
 
