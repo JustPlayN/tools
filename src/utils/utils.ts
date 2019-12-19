@@ -69,7 +69,7 @@ export const getUid = (): string => {
 
 /**
  * @function 动态加载js
- * @param src 
+ * @param src
  */
 export const loadJs = (src: string) => {
   var script = document.createElement('script')
@@ -95,6 +95,27 @@ export const getUrlParam = function (name: string, url: string) {
   } else {
     return null // 返回参数值
   }
+}
+
+/**
+ * @function 将url中的参数转换为对象
+ * @param url 链接
+ */
+export const paramsToJson = function (url:string) {
+  // eslint-disable-next-line
+  const regUrl = /^[^\?]+\?([\w\W]+)$/
+  // eslint-disable-next-line
+  const regPara = /([^&=]+)=([\w\W]*?)(&|$|#)/g
+  const arrUrl = regUrl.exec(url)
+  const ret = {}
+  if (arrUrl && arrUrl[1]) {
+    let strPara = arrUrl[1]
+    let result
+    while ((result = regPara.exec(strPara)) !== null) {
+      ret[result[1]] = result[2]
+    }
+  }
+  return ret
 }
 
 interface Wind extends Window {
