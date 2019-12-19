@@ -63,7 +63,7 @@ export const openUrl = (dataObj: any) => {
         window.wx.miniProgram.redirectTo({ url: `${url}${objStr}` })
         break
       case 'callphone':
-        window.location.href = `tel://${phone}`
+        window.location.href = `tel://${minObj.phoneNumber}`
         break
       default:
         window.wx.miniProgram.navigateBack()
