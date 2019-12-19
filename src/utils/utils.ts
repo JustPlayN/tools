@@ -101,7 +101,7 @@ export const getUrlParam = function (name: string, url: string) {
  * @function 将url中的参数转换为对象
  * @param url 链接
  */
-export const paramsToJson = function (url:string) {
+export const paramsToJson = function (url:string = window.location.href) {
   // eslint-disable-next-line
   const regUrl = /^[^\?]+\?([\w\W]+)$/
   // eslint-disable-next-line
