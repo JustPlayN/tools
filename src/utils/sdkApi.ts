@@ -83,6 +83,14 @@ export const callPhone = (phone: any) => {
 }
 
 /**
+ * @function 调用设置标题
+ * @param title 标题
+ */
+export const setTitle = (title: any) => {
+  utils.isApp() ? appApi('setNativeTitle', [title]) : document.title = title
+}
+
+/**
  * @function 调用打电话
  * @param phone 电话号码
  */
