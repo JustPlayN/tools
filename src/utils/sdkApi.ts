@@ -47,7 +47,12 @@ export const openUrl = (dataObj: any) => {
   }
   let objStr = objStrArr.length > 0 ? '?' + objStrArr.join('&') : ''
   if (utils.isApp()) {
-    window.location.href = `${appRouter[url]}${objStr}`
+    if (appType === 'webview') {
+      let appUrl = `${appRouter[url]}${objStr}`
+      window.location.href = `yp://webViewPage?url=${encodeURIComponent(appUrl)}`
+    } else {
+      window.location.href = `${appRouter[url]}${objStr}`
+    }
   } else if (utils.isMiniProgram()) {
     switch (minType) {
       case 'switchTab':
@@ -118,6 +123,7 @@ const appRouter: Object = {
   '/pages/search/main': 'yp://flutterSearch',                     // 搜索页
   '/pages/account/index': 'yp://nativeGoRechargePage',            // 充值页面
   'goback': 'yp://popPage',                                       // 返回上一页
+  '/pages/activity/index': `${window.location.origin}/promotion/activityCenter.html#/`,
   'goshare': 'yp://appShare',                           // 返回上一页
   'callphone': 'yp://callPhone',
 }
