@@ -4,6 +4,7 @@
  * @callPhone
  * @login
  * @share
+ * @postMessage
  */
 
 import * as utils from './utils'
@@ -111,6 +112,14 @@ export const login = () => {
  */
 export const share = (url: string, img: string, title: string) => {
   utils.isApp() ? appApi('goShare', [title, img, url]) : window.wx.miniProgram.postMessage({ share: { url, img, title } })
+}
+
+/**
+ * @function h5传参给app、小程序
+ * @parm obj: { address: {} }
+ */
+export const postMessage = (obj) => {
+  utils.isApp() ? appApi('postMessage', [obj]) : window.wx.miniProgram.postMessage(obj)
 }
 
 const appRouter: Object = {
