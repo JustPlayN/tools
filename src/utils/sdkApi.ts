@@ -27,7 +27,7 @@ export const appApi = (func: string, args: any = []) => {
  * @param appType:app跳转方式
  */
 export const openUrl = (dataObj: any) => {
-  let { url = 'goback', minObj, appObj, obj, minType = 'navigateBack', appType = '' } = dataObj || {}
+  let { url = 'goback', minObj, appObj, obj, minType = 'navigateTo', appType = '' } = dataObj || {}
   let objStrArr = []
   if (utils.isApp() && appObj) {
     for (let key in appObj) {
