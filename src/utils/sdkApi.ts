@@ -111,7 +111,7 @@ export const login = () => {
  * @param title 分享title
  */
 export const share = (url: string, img: string, title: string) => {
-  utils.isApp() ? appApi('goShare', [title, img, url]) : window.wx.miniProgram.postMessage({ share: { url, img, title } })
+  utils.isApp() ? appApi('goShare', [title, img, url]) : window.wx.miniProgram.postMessage({ data: {share: { url, img, title }} })
 }
 
 /**
@@ -119,7 +119,7 @@ export const share = (url: string, img: string, title: string) => {
  * @parm obj: { address: {} }
  */
 export const postMessage = (obj) => {
-  utils.isApp() ? appApi('postMessage', [obj]) : window.wx.miniProgram.postMessage(obj)
+  utils.isApp() ? appApi('postMessage', [obj]) : window.wx.miniProgram.postMessage({ data: obj })
 }
 
 const appRouter: Object = {
