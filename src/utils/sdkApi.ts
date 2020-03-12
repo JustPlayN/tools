@@ -94,7 +94,7 @@ export const callPhone = (phone: any) => {
  * @param bgColor 标题背景
  * @param titleColor 字体颜色
  */
-export const setTitle = (title: any, bgColor: any, titleColor: any) => {
+export const setTitle = (title: any = '', bgColor: any = '', titleColor: any = '') => {
   utils.isApp() ? appApi('setNativeTitle', [title, bgColor, titleColor]) : document.title = title
 }
 
