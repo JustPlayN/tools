@@ -133,8 +133,8 @@ const appRouter: Object = {
   '/pages/account/index': 'yp://nativeGoRechargePage',            // 充值页面
   'goback': 'yp://popPage',                                       // 返回上一页
   '/pages/activity/index': `${window.location.origin}/promotion/activityCenter.html#/`,
-  'goshare': 'yp://appShare',                           // 返回上一页
   'callphone': 'yp://callPhone',
+  '/pages/order/main': 'yp://nativeOrderSettlementPage'           // 订单结算
 }
 
 
