@@ -206,3 +206,29 @@ export const debounce = (func: Function, wait: number = 600, immediate: boolean 
 
 	return debounced
 }
+
+/**
+ * 1、解决移动端滚动穿透；
+ * 2、解决ios11弹出层的input框光标偏移问题
+ * open: 弹窗弹出的时候调用
+ * close：弹窗关闭的时候调用
+ * @returns {{open: open, close: close}}
+ * @constructor
+ */
+export const ModalHelper = () => {
+    let scrollTop
+    return {
+        open: function () {
+            // 安卓和ios支持document.body.scrollTop返回正确数值, 但是document.documentElement.scrollTop返回0，谷歌浏览器却是相反的，
+            // 总之，这两个值肯定会一个是0，另一个是正确的数值，为了我们日常在PC端和移动端能够正常调试和显示，这里进行相加。
+            scrollTop = document.body.scrollTop + document.documentElement.scrollTop
+            document.body.classList.add('hack-scroll')
+            document.body.style.top = -scrollTop + 'px'
+        },
+        close: function () {
+            document.body.classList.remove('hack-scroll')
+            document.body.scrollTop = scrollTop
+            document.documentElement.scrollTop = scrollTop
+        }
+    }
+}
