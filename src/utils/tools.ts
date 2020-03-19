@@ -222,11 +222,11 @@ export const ModalHelper = () => {
             // 安卓和ios支持document.body.scrollTop返回正确数值, 但是document.documentElement.scrollTop返回0，谷歌浏览器却是相反的，
             // 总之，这两个值肯定会一个是0，另一个是正确的数值，为了我们日常在PC端和移动端能够正常调试和显示，这里进行相加。
             scrollTop = document.body.scrollTop + document.documentElement.scrollTop
-            document.getElementById('HackScroll').classList.add('hack-scroll')
+            document.body.classList.add('hack-scroll')
             document.body.style.top = -scrollTop + 'px'
         },
         close: function () {
-            document.getElementById('HackScroll').classList.remove('hack-scroll')
+            document.body.classList.remove('hack-scroll')
             document.body.scrollTop = scrollTop
             document.documentElement.scrollTop = scrollTop
         }
