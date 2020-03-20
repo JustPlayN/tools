@@ -8,6 +8,8 @@
  * @debounce
  */
 
+import * as utils from './utils'
+
 /**
  * @function 小数乘法
  * @value 乘数
@@ -216,19 +218,78 @@ export const debounce = (func: Function, wait: number = 600, immediate: boolean 
  * @constructor
  */
 export const ModalHelper = () => {
-    let scrollTop
-    return {
-        open: function () {
-            // 安卓和ios支持document.body.scrollTop返回正确数值, 但是document.documentElement.scrollTop返回0，谷歌浏览器却是相反的，
-            // 总之，这两个值肯定会一个是0，另一个是正确的数值，为了我们日常在PC端和移动端能够正常调试和显示，这里进行相加。
-            scrollTop = document.body.scrollTop + document.documentElement.scrollTop
-            document.body.classList.add('hack-scroll')
-            document.body.style.top = -scrollTop + 'px'
-        },
-        close: function () {
-            document.body.classList.remove('hack-scroll')
-            document.body.scrollTop = scrollTop
-            document.documentElement.scrollTop = scrollTop
-        }
+  let scrollTop
+  return {
+    open: function () {
+      // 安卓和ios支持document.body.scrollTop返回正确数值, 但是document.documentElement.scrollTop返回0，谷歌浏览器却是相反的，
+      // 总之，这两个值肯定会一个是0，另一个是正确的数值，为了我们日常在PC端和移动端能够正常调试和显示，这里进行相加。
+      scrollTop = document.body.scrollTop + document.documentElement.scrollTop
+      document.body.classList.add('hack-scroll')
+      document.body.style.top = -scrollTop + 'px'
+    },
+    close: function () {
+      document.body.classList.remove('hack-scroll')
+      document.body.scrollTop = scrollTop
+      document.documentElement.scrollTop = scrollTop
     }
+  }
+}
+
+/**
+ * @function app是否需要更新
+ * @param obj: {iosV: '', andriodV: ''}
+ * @returns false: 不需要更新，true: 更新
+ */
+export const forceUpdate = function (obj: any):boolean {
+  if (!utils.isApp()) {
+    return false
+  }
+  let v = getAppVersion()
+  let res: number
+  if (utils.isIos()) {
+    res = compareVersion(v, obj.iosV)
+  } else {
+    res = compareVersion(v, obj.andriodV)
+  }
+  return res === -1
+}
+
+/**
+ * 获取客户端版本号
+ * @returns String
+ */
+export const getAppVersion = function ():string {
+  return window.navigator.userAgent.match(/ypsx\/(ios|andriod)\/(\S*)/)[2] || '0.0.0'
+}
+
+/**
+ * @function 比较版本号
+ * @returns 0：v1 === v2
+ * @returns 1：v1 > v2
+ * @returns -1：v1 < v2
+ */
+export const compareVersion = function (v1, v2): number {
+  v1 = v1.split('.')
+  v2 = v2.split('.')
+  const len = Math.max(v1.length, v2.length)
+
+  while (v1.length < len) {
+    v1.push('0')
+  }
+  while (v2.length < len) {
+    v2.push('0')
+  }
+
+  for (let i = 0; i < len; i++) {
+    const num1 = parseInt(v1[i])
+    const num2 = parseInt(v2[i])
+
+    if (num1 > num2) {
+      return 1
+    } else if (num1 < num2) {
+      return -1
+    }
+  }
+
+  return 0
 }
