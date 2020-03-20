@@ -249,7 +249,7 @@ export const forceUpdate = function (obj: any):boolean {
   if (utils.isIos()) {
     res = compareVersion(v, obj.iosV)
   } else {
-    res = compareVersion(v, obj.andriodV)
+    res = compareVersion(v, obj.androidV)
   }
   return res === -1
 }
