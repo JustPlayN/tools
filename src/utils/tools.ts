@@ -259,7 +259,7 @@ export const forceUpdate = function (obj: any):boolean {
  * @returns String
  */
 export const getAppVersion = function ():string {
-  return window.navigator.userAgent.match(/ypsx\/(ios|andriod)\/(\S*)/)[2] || '0.0.0'
+  return window.navigator.userAgent.match(/ypsx\/(ios|android)\/(\S*)/)[2] || '0.0.0'
 }
 
 /**
