@@ -136,7 +136,9 @@ const appRouter: Object = {
   'goback': 'yp://popPage',                                       // 返回上一页
   '/pages/activity/index': `${window.location.origin}/promotion/activityCenter.html#/`,
   'callphone': 'yp://callPhone',
-  '/pages/order/main': 'yp://nativeOrderSettlementPage'           // 订单结算
+  '/pages/order/main': 'yp://nativeOrderSettlementPage',           // 订单结算
+  '/subPages/applySale/index': 'yp://initRefundOrder',   // 售后发起页
+  '/pages/orderList/index': 'yp://listRefundOrder'       // 订单列表
 }
 
 
