@@ -137,7 +137,7 @@ const appRouter: Object = {
   '/pages/activity/index': `${window.location.origin}/promotion/activityCenter.html#/`,
   'callphone': 'yp://callPhone',
   '/pages/order/main': 'yp://nativeOrderSettlementPage',           // 订单结算
-  '/subPages/applySale/index': 'yp://initRefundOrder',   // 售后发起页
+  '/subPages/applySale/index': 'yp://flutterInitRefundOrderPage',   // 售后发起页
   '/pages/orderList/index': 'yp://listRefundOrder'       // 订单列表
 }
 
