@@ -129,7 +129,7 @@ export const postMessage = (obj) => {
 
 const appRouter: Object = {
   '/pages/index/index': 'yp://nativeGoHome',                      // 首页
-  '/subPages/index/index': 'yp://nativeGoHome',                   // 包邮首页
+  '/subPages/index/index': 'yp://nativeFreeShippingPage',         // 包邮首页
   '/pages/shoppingCart/main': 'yp://nativeShoppingCart',          // 购物车
   '/pages/detail/main': 'yp://nativeGoodsPage',                   // 商品详情页
   '/pages/sort/main': 'yp://nativeGoCategory',                    // 分类页
