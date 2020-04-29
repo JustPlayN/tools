@@ -65,6 +65,9 @@ export const openUrl = (dataObj: any) => {
       case 'navigateTo':
         window.wx.miniProgram.navigateTo({ url: `${url}${objStr}` })
         break
+      case 'reLaunch':
+        window.wx.miniProgram.reLaunch({ url: `${url}${objStr}` })
+        break
       case 'redirectTo':
         window.wx.miniProgram.redirectTo({ url: `${url}${objStr}` })
         break
@@ -126,6 +129,7 @@ export const postMessage = (obj) => {
 
 const appRouter: Object = {
   '/pages/index/index': 'yp://nativeGoHome',                      // 首页
+  '/subPages/index/index': 'yp://nativeGoHome',                   // 包邮首页
   '/pages/shoppingCart/main': 'yp://nativeShoppingCart',          // 购物车
   '/pages/detail/main': 'yp://nativeGoodsPage',                   // 商品详情页
   '/pages/sort/main': 'yp://nativeGoCategory',                    // 分类页
