@@ -62,6 +62,9 @@ export const openUrl = (dataObj: any) => {
       case 'goback':
         window.wx.miniProgram.navigateBack()
         break
+      case 'goShare':
+        window.wx.miniProgram.postMessage({ data: { share: minObj } })
+        break
       case 'navigateTo':
         window.wx.miniProgram.navigateTo({ url: `${url}${objStr}` })
         break
@@ -140,9 +143,10 @@ const appRouter: Object = {
   'goback': 'yp://popPage',                                       // 返回上一页
   '/pages/activity/index': `${window.location.origin}/promotion/activityCenter.html#/`,
   'callphone': 'yp://callPhone',
-  '/pages/order/main': 'yp://nativeOrderSettlementPage',           // 订单结算
-  '/subPages/applySale/index': 'yp://flutterInitRefundOrderPage',   // 售后发起页
-  '/pages/orderList/index': 'yp://listRefundOrder'       // 订单列表
+  '/pages/order/main': 'yp://nativeOrderSettlementPage',          // 订单结算
+  '/subPages/applySale/index': 'yp://flutterInitRefundOrderPage', // 售后发起页
+  '/pages/orderList/index': 'yp://listRefundOrder',               // 订单列表
+  'goShare': 'yp://appShare'       // 分享
 }
 
 
