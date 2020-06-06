@@ -105,11 +105,21 @@ export const setTitle = (title: any = '', bgColor: any = '', titleColor: any = '
 }
 
 /**
- * @function 调用打电话
+ * @function 登录
  * @param phone 电话号码
  */
 export const login = () => {
   utils.isApp() ? appApi('toLogin') : console.log('非app登录，小程序不需要登录')
+}
+
+/**
+ * @function 登录
+ * @param phone 电话号码
+ */
+export const goToWxLive = (roomId) => {
+  utils.isApp() ? appApi('goToWxLive', [roomId]) : window.wx.miniProgram({
+    url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${roomId}`
+  })
 }
 
 /**
