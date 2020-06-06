@@ -117,7 +117,7 @@ export const login = () => {
  * @param phone 电话号码
  */
 export const goToWxLive = (roomId) => {
-  utils.isApp() ? appApi('goToWxLive', [roomId]) : window.wx.miniProgram({
+  utils.isApp() ? appApi('goToWxLive', [roomId]) : window.wx.miniProgram.navigateTo({
     url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${roomId}`
   })
 }
