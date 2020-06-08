@@ -106,10 +106,10 @@ export const setTitle = (title: any = '', bgColor: any = '', titleColor: any = '
 
 /**
  * @function 登录
- * @param phone 电话号码
+ * @param flag 是否强制登录 默认不强制
  */
-export const login = () => {
-  utils.isApp() ? appApi('toLogin') : console.log('非app登录，小程序不需要登录')
+export const login = (flag: boolean = false) => {
+  utils.isApp() ? appApi('toLogin', [flag]) : console.log('非app登录，小程序不需要登录')
 }
 
 /**
