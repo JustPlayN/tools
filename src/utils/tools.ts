@@ -118,7 +118,7 @@ export const img = (url: string, w: number, h: number, m: string = 'fill') => {
     const str = url.match(/(\S*)\?/) ? url.match(/(\S*)\?/)[1] : url
     const width = w ? `/w/${w}` : ''
     const height = h ? `/h/${h}` : ''
-    return `${str}?style=imageView2/1${width}${height}/q/100`
+    return `${str}?style=imageView2/2${width}${height}/q/100`
   } else {
     return url
   }
