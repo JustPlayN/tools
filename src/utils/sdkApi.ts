@@ -137,7 +137,11 @@ export const share = (url: string, img: string, title: string) => {
  * @parm obj: { address: {} }
  */
 export const postMessage = (obj) => {
-  utils.isApp() ? appApi('postMessage', [JSON.stringify(obj)]) : window.wx.miniProgram.postMessage({ data: obj })
+  if (utils.isApp()) {
+    appApi('postMessage', [JSON.stringify(obj)])
+  } else if (utils.isMiniProgram()) {
+    window.wx.miniProgram.postMessage({ data: obj })
+  }
 }
 
 const appRouter: Object = {
