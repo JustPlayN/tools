@@ -148,6 +148,7 @@ const appRouter: Object = {
   '/pages/index/index': 'yp://nativeGoHome',                      // 首页
   '/subPages/index/index': 'yp://nativeFreeShippingPage',         // 包邮首页
   '/subPages/detail/index': 'yp://nativeFreeShippingProductDetailPage',         // 包邮商品详情
+  '/subPages/brand/index': 'yp://nativeBrandDetailPage',         // 包邮商品详情
   '/pages/shoppingCart/main': 'yp://nativeShoppingCart',          // 购物车
   '/pages/detail/main': 'yp://nativeGoodsPage',                   // 商品详情页
   '/pages/sort/main': 'yp://nativeGoCategory',                    // 分类页
@@ -161,7 +162,8 @@ const appRouter: Object = {
   '/pages/order/main': 'yp://nativeOrderSettlementPage',          // 订单结算
   '/subPages/applySale/index': 'yp://flutterInitRefundOrderPage', // 售后发起页
   '/pages/orderList/index': 'yp://listRefundOrder',               // 订单列表
-  'goShare': 'yp://appShare'       // 分享
+  'goShare': 'yp://appShare',       // 分享
+  'plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin': 'yp://wxLive' // 微信直播
 }
 
 
