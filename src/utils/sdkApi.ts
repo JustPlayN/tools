@@ -133,6 +133,26 @@ export const share = (url: string, img: string, title: string) => {
 }
 
 /**
+ * @function 分享配置
+ * @param shareUrl 分享连接
+ * @param imgUrl 分享图片
+ * @param title 分享title
+ * @param desc 分享副标题
+ * @param type 分享类型：0-小程序、1-web、2-朋友圈、3-朋友圈图片、4-好友图片
+ */
+export const configShare = (shareObj) => {
+  if (utils.isApp()) {
+    appApi('configShare', ['yp://appShare?' + `title=${shareObj.title ? encodeURIComponent(shareObj.title) : ''}`
+      + `&desc=${shareObj.desc ? encodeURIComponent(shareObj.desc) : ''}`
+      + `&imgUrl=${shareObj.imgUrl ? encodeURIComponent(shareObj.imgUrl) : ''}`
+      + `&shareUrl=${shareObj.shareUrl ? encodeURIComponent(shareObj.shareUrl) : ''}`
+      + `&type=${shareObj.type || 0}`])
+  } else {
+    window.wx.miniProgram.postMessage({ data: {share: { url: shareObj.shareUrl, img: shareObj.imgUrl, title: shareObj.title }} })
+  }
+}
+
+/**
  * @function h5传参给app、小程序
  * @parm obj: { address: {} }
  */
