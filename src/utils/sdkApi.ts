@@ -147,7 +147,7 @@ export const configShare = (shareObj) => {
       + `&imgUrl=${shareObj.imgUrl ? encodeURIComponent(shareObj.imgUrl) : ''}`
       + `&shareUrl=${shareObj.shareUrl ? encodeURIComponent(shareObj.shareUrl) : ''}`
       + `&type=${shareObj.type || 0}`])
-  } else {
+  } else if (utils.isMiniProgram()) {
     window.wx.miniProgram.postMessage({ data: {share: { url: shareObj.shareUrl, img: shareObj.imgUrl, title: shareObj.title }} })
   }
 }
