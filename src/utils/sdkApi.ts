@@ -12,7 +12,7 @@ import * as utils from './utils'
 declare var window: Wind
 export const appApi = (func: string, args: any = []) => {
   if (utils.isIos()) {
-    window.webkit && window.webkit.messageHandlers[func].postMessage(args)
+    window.webkit && window.webkit.messageHandlers[func] && window.webkit.messageHandlers[func].postMessage(args)
   } else {
     window.ypsxBridge[func](...args)
   }
