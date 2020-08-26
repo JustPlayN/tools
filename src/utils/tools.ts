@@ -101,7 +101,7 @@ export const countDown = (endTime: number, timer: any, callBack: Function, showD
  * 阿里云文档链接：https://help.aliyun.com/document_detail/44688.html?spm=a2c4g.11186623.6.1324.25e13168TRuHyf
  * 腾讯云文档链接：https://cloud.tencent.com/document/product/460/6929
  */
-export const img = (url: string, w: number, h: number, m: string = 'fill') => {
+export const img = (url: string, w: number, h: number, m: string = 'fill', tm = 2) => {
   const urlReg = /ss1\.ypshengxian\.com/
   const turlReg = /(test-oss)|(resources)\.ypshengxian\.com/
   const imgReg = /https?:/
@@ -118,7 +118,7 @@ export const img = (url: string, w: number, h: number, m: string = 'fill') => {
     const str = url.match(/(\S*)\?/) ? url.match(/(\S*)\?/)[1] : url
     const width = w ? `/w/${w}` : ''
     const height = h ? `/h/${h}` : ''
-    return `${str}?style=imageView2/${w === h ? 2 : 1}${width}${height}/q/100`
+    return `${str}?style=imageView2/${tm}${width}${height}/q/100`
   } else {
     return url
   }
