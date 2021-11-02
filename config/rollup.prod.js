@@ -3,10 +3,10 @@ const babel = require('rollup-plugin-babel')
 const progress = require('rollup-plugin-progress')
 
 let fileList = [
-  { file: 'sdkApi', name: 'sdkApi', dir: '/utils' },
-  { file: 'utils', name: 'utils', dir: '/utils' },
-  { file: 'tools', name: 'tools', dir: '/utils'},
-  { file: 'wxBridge', name: 'wxBridge', dir: '/jsBridge'},
+  // { file: 'sdkApi', name: 'sdkApi', dir: '/utils' },
+  // { file: 'utils', name: 'utils', dir: '/utils' },
+  // { file: 'tools', name: 'tools', dir: '/utils'},
+  // { file: 'wxBridge', name: 'wxBridge', dir: '/jsBridge'},
   { file: 'index', name: 'index', dir: '/'},
 ]
 let myPlugins = [

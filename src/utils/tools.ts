@@ -216,6 +216,7 @@ export const debounce = (func: Function, wait: number = 600, immediate: boolean 
  * close：弹窗关闭的时候调用
  * @returns {{open: open, close: close}}
  * @constructor
+ * .hack-scroll { position: fixed; width: 100%; }
  */
 export const ModalHelper = () => {
   let scrollTop
