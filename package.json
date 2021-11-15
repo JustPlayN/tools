@@ -33,11 +33,11 @@
     "vue-template-compiler": "^2.6.10"
   },
   "publishConfig": {
-    "registry": "http://nexus.ypsx-internal.com/repository/npm-private/"
+    "registry": "私有地址"
   },
   "repository": {
     "private": true,
     "type": "git",
-    "url": "https://coding.ypsx-internal.com/web-front-end/yp-tools"
+    "url": "私有地址"
   }
 }
